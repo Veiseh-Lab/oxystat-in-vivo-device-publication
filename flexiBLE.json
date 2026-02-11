@@ -1,0 +1,368 @@
+{
+    "id": "uOxyStat-spec",
+    "schema_version": "0.3.6",
+    "created_at": "2022-09-20T22:00:00.000Z",
+    "updated_at": "2022-09-20T22:00:00.000Z",
+    "tags": [
+        "development"
+    ],
+    "ble_registered_devices": [],
+    "devices": [
+        {
+            "name": "uOS",
+            "description": "a locally stored file for oxystat device config",
+            "ble": {
+                "ble_registered_services": [
+                    "battery"
+                ],
+                "info_service_uuid": "1d5daa84-eff2-4459-991b-31bed8ea2548",
+                "epoch_char_uuid": "119ae128-9459-4377-9338-4238e175e28d",
+                "refresh_epoch_char_uuid": "7a2c949b-36e4-4386-9f03-6fa34855a97a",
+                "device_in_char_uuid": "1a220004-c2ed-4d11-ad1e-fc06d8a02d37",
+                "device_out_char_uuid": "1a220005-c2ed-4d11-ad1e-fc06d8a02d37"
+            },
+            "commands": [],
+            "configValues": [],
+            "data_streams": [
+                {
+                    "id": "0x0001",
+                    "name": "oxystat",
+                    "description": "Oxygenation and Potentiometry",
+                    "precision": "ms",
+                    "offset_data_value": {
+                        "name": "ms_offset",
+                        "description": "relative time since the previous reading",
+                        "unit": "ms",
+                        "byte_start": 0,
+                        "byte_end": 4,
+                        "size": 4,
+                        "type": "uint",
+                        "multiplier": null,
+                        "variable_type": "none"
+                    },
+                    "config_values": [
+                        {
+                            "name": "sensor_state",
+                            "description": "state of the potentiometer",
+                            "byte_start": 0,
+                            "byte_end": 1,
+                            "size": 1,
+                            "unit": null,
+                            "data_type": "uint",
+                            "selection_type": "single",
+                            "default_value": "1",
+                            "options": [
+                                {
+                                    "name": "disabled",
+                                    "description": "the sensor will not stream data",
+                                    "value": "0"
+                                },
+                                {
+                                    "name": "streaming",
+                                    "description": "the sensor will stream data",
+                                    "value": "1"
+                                }
+                            ],
+                            "range": null
+                        },
+                        {
+                            "name": "measurement_period",
+                            "description": "the desired measurement period of the sensor",
+                            "byte_start": 1,
+                            "byte_end": 3,
+                            "size": 2,
+                            "data_type": "uint",
+                            "selection_type": "range",
+                            "unit": "s",
+                            "options": null,
+                            "default_value": "600",
+                            "range": {
+                                "start": 30,
+                                "end": 600,
+                                "step": 30
+                            }                            
+                        },
+                        {
+                            "name": "num_samples",
+                            "description": "how many samples should the device collect",
+                            "byte_start": 3,
+                            "byte_end": 5,
+                            "size": 2,
+                            "data_type": "uint",
+                            "selection_type": "range",
+                            "unit": "samples",
+                            "options": null,
+                            "default_value": "10",
+                            "range": {
+                                "start": 1,
+                                "end": 100,
+                                "step": 1
+                            }
+                        },
+                        {
+                            "name": "measurement_hz",
+                            "description": "the desired measurement frequency of the sensor",
+                            "byte_start": 5,
+                            "byte_end": 7,
+                            "size": 2,
+                            "data_type": "uint",
+                            "selection_type": "range",
+                            "unit": "hz",
+                            "options": null,
+                            "default_value": "300",
+                            "range": {
+                                "start": 5,
+                                "end": 100,
+                                "step": 5
+                            }
+                        },
+                        {
+                            "name": "channel_1_voltage",
+                            "description": "the voltage to set on channel 1",
+                            "byte_start": 7,
+                            "byte_end": 9,
+                            "size": 2,
+                            "data_type": "uint",
+                            "selection_type": "range",
+                            "unit": "mv",
+                            "options": null,
+                            "default_value": "0",
+                            "range": {
+                                "start": 0,
+                                "end": 1900,
+                                "step": 10
+                            }
+                        },
+                        {
+                            "name": "channel_2_voltage",
+                            "description": "the voltage to set on channel 2",
+                            "byte_start": 9,
+                            "byte_end": 11,
+                            "size": 2,
+                            "data_type": "uint",
+                            "selection_type": "range",
+                            "unit": "mv",
+                            "options": null,
+                            "default_value": "0",
+                            "range": {
+                                "start": 0,
+                                "end": 1900,
+                                "step": 10
+                            }
+                        },
+                        {
+                            "name": "channel_3_voltage",
+                            "description": "the voltage to set on channel 3",
+                            "byte_start": 11,
+                            "byte_end": 13,
+                            "size": 2,
+                            "data_type": "uint",
+                            "selection_type": "range",
+                            "unit": "mv",
+                            "options": null,
+                            "default_value": "0",
+                            "range": {
+                                "start": 0,
+                                "end": 1900,
+                                "step": 10
+                            }
+                        },
+                        {
+                            "name": "channel_4_voltage",
+                            "description": "the voltage to set on channel 4",
+                            "byte_start": 13,
+                            "byte_end": 15,
+                            "size": 2,
+                            "data_type": "uint",
+                            "selection_type": "range",
+                            "unit": "mv",
+                            "options": null,
+                            "default_value": "0",
+                            "range": {
+                                "start": 0,
+                                "end": 1900,
+                                "step": 10
+                            }
+                        },
+                        {
+                            "name": "enable_led",
+                            "description": "enable on-board LED",
+                            "byte_start": 15,
+                            "byte_end": 16,
+                            "size": 1,
+                            "unit": null,
+                            "data_type": "uint",
+                            "selection_type": "single",
+                            "default_value": "0",
+                            "options": [
+                                {
+                                    "name": "disabled",
+                                    "description": "the LED will not blink",
+                                    "value": "0"
+                                },
+                                {
+                                    "name": "enabled",
+                                    "description": "the LED will blink",
+                                    "value": "1"
+                                }
+                            ],
+                            "range": null
+                        },
+                        {
+                            "name": "oxygenation_period",
+                            "description": "the desired duty cycle oxygenation period",
+                            "byte_start": 16,
+                            "byte_end": 18,
+                            "size": 2,
+                            "unit": "s",
+                            "data_type": "uint",
+                            "selection_type": "range",
+                            "default_value": "60",
+                            "range": {
+                                "start": 30,
+                                "end": 600,
+                                "step": 10
+                            },
+                            "options": null
+                        },
+                        {
+                            "name": "oxygenation_duty_cycle",
+                            "description": "the desired oxygenation duty cycle",
+                            "byte_start": 18,
+                            "byte_end": 19,
+                            "size": 1,
+                            "unit": "%",
+                            "data_type": "uint",
+                            "selection_type": "range",
+                            "default_value": "100",
+                            "range": {
+                                "start": 0,
+                                "end": 100,
+                                "step": 10
+                            },
+                            "options": null
+                        },
+                        {
+                            "name": "channels_enabled",
+                            "description": "which channels are enabled. disabling a channel also disables its partner channel (1&2, 3&4)",
+                            "byte_start": 19,
+                            "byte_end": 20,
+                            "size": 1,
+                            "data_type": "uint",
+                            "selection_type": "bit-encoded-multi",
+                            "options": [
+                                {
+                                    "name": "Channel_1",
+                                    "description": "",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "Channel_2",
+                                    "description": "",
+                                    "value": "2"
+                                },
+                                {
+                                    "name": "Channel_3",
+                                    "description": "",
+                                    "value": "4"
+                                },
+                                {
+                                    "name": "Channel_4",
+                                    "description": "",
+                                    "value": "8"
+                                }
+                            ],
+                            "default_value": "0",
+                            "range": null
+                        },
+                        {
+                            "name": "enable_averaging",
+                            "description": "average readings from a measurement sequence",
+                            "byte_start": 20,
+                            "byte_end": 21,
+                            "size": 1,
+                            "unit": null,
+                            "data_type": "uint",
+                            "selection_type": "single",
+                            "default_value": "1",
+                            "options": [
+                                {
+                                    "name": "disabled",
+                                    "description": "readings will not be averaged (more data is sent)",
+                                    "value": "0"
+                                },
+                                {
+                                    "name": "enabled",
+                                    "description": "readings will be averaged",
+                                    "value": "1"
+                                }
+                            ],
+                            "range": null
+                        }
+                    ],
+                    "data_values": [
+                        {
+                            "name": "channel",
+                            "description": "Which channel was read from",
+                            "unit": "",
+                            "byte_start": 4,
+                            "byte_end": 5,
+                            "size": 1,
+                            "type": "uint",
+                            "multiplier": null,
+                            "variable_type": "tag",
+                            "depends_on": null,
+                            "value_options": [
+                                "Channel_1",
+                                "Channel_2",
+                                "Channel_3",
+                                "Channel_4"
+                            ]
+                        },
+                        {
+                            "name": "v_rs",
+                            "description": "voltage before shunt resistor, ADC reading",
+                            "unit": "mv",
+                            "byte_start": 5,
+                            "byte_end": 7,
+                            "size": 2,
+                            "type": "uint",
+                            "multiplier": 0.00003814755,
+                            "variable_type": "value",
+                            "depends_on": ["channel"]
+                        },
+                        {
+                            "name": "v_pot",
+                            "description": "voltage after shunt resistor, ADC reading",
+                            "unit": "mv",
+                            "byte_start": 7,
+                            "byte_end": 9,
+                            "size": 2,
+                            "type": "uint",
+                            "multiplier": 0.00003814755,
+                            "variable_type": "value",
+                            "depends_on": ["channel"]
+                        },
+                        {
+                            "name": "adc_current",
+                            "description": "",
+                            "unit": "uA",
+                            "byte_start": 9,
+                            "byte_end": 13,
+                            "size": 4,
+                            "type": "int",
+                            "multiplier": 0,
+                            "variable_type": "value",
+                            "depends_on": ["channel"]
+                        }
+                    ],
+                    "ble": {
+                        "service_uuid": "d37d0c17-69fd-41a0-895b-af3bd8697a4a",
+                        "data_char_uuid": "a8975a3e-a88a-4700-9210-64d710d3b349",
+                        "config_char_uuid": "049456ce-d549-44f1-810a-7d11381363d9"
+                    }
+                }
+            ]
+        }
+    ]
+}

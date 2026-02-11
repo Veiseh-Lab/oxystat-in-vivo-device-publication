@@ -1,0 +1,84 @@
+@startuml
+[*] --> Initialize
+
+state Initialize {
+    Initialize: ADC, LDMA, LETIMER, MUX, DACs, MAG SWITCH
+}
+
+state Idle {
+    Idle: Wait for timer event
+}
+
+state Measure {
+    Measure: LETIMER triggers ADC at configurable rate for configurable duration
+}
+
+state Process {
+    Process: Process DMA buffers
+}
+
+state SwitchChannel {
+    SwitchChannel: Switch MUX channel
+}
+
+state Advertise {
+    Advertise: Advertise BLE
+}
+
+state Connect {
+    Connect: Connect to BLE
+}
+
+state Transmit {
+    Transmit: Transmit 1 packet (~17 measurements) over BLE
+}
+
+state AwaitAck {
+    AwaitAck: Await ACK from central
+}
+
+state UpdateReferenceTime {
+    UpdateReferenceTime: Refresh reference time from central
+}
+
+state Disconnect {
+    Disconnect: Disconnect from BLE
+}
+
+state IdleAdvertisement {
+    IdleAdvertisement: Advertise BLE
+}
+
+state ConfigurationUpdate {
+    ConfigurationUpdate: Update local configuration from BLE GATT
+}
+
+state LowPower {
+    LowPower: EM4S
+}
+
+Initialize --> Idle: Initialization Complete
+
+Idle --> Measure: Start Measurement Timer Expires
+Measure --> Process: DMA Callback Signals Measurement Complete
+Process --> SwitchChannel: DMA Buffer Processed
+SwitchChannel --> Idle: Channel Switched
+
+Idle --> IdleAdvertisement: Configuration Advertisement Timer Expires
+IdleAdvertisement --> Idle: Timeout
+IdleAdvertisement --> ConfigurationUpdate: Connection Request
+ConfigurationUpdate --> Idle: Local Configuration Updated OR Timeout
+
+Idle --> Advertise: Local Measurement Buffer Full
+Advertise --> Connect: BLE Connection Request from Central
+Connect --> Transmit: BLE Connection Established
+Transmit --> AwaitAck: Packet Transmitted
+AwaitAck --> Transmit: ACK Received && Local Buffer Not Empty
+AwaitAck --> UpdateReferenceTime: Ack Received && Local Buffer Empty
+UpdateReferenceTime --> Disconnect: Reference Time Updated
+Disconnect --> Idle: BLE Disconnected
+
+Idle --> LowPower: Magnetic Switch Triggered
+LowPower --> Initialize: Magnetic Switch Released
+
+@enduml

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--uOxyStatProfile-->
+<gatt gatt_caching="true" generic_attribute_service="true" header="gatt_db.h" name="uOxyStatProfile" out="gatt_db.c" prefix="gattdb_">
+
+  <!--Generic Access-->
+  <service advertise="false" name="Generic Access" requirement="mandatory" sourceId="org.bluetooth.service.generic_access" type="primary" uuid="1800">
+    <informativeText>Abstract: The generic_access service contains generic information about the device. All available Characteristics are readonly. </informativeText>
+
+    <!--Device Name-->
+    <characteristic const="false" id="device_name" name="Device Name" sourceId="org.bluetooth.characteristic.gap.device_name" uuid="2A00">
+      <value length="15" type="utf-8" variable_length="true">uOS</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+
+    <!--Appearance-->
+    <characteristic const="true" name="Appearance" sourceId="org.bluetooth.characteristic.gap.appearance" uuid="2A01">
+      <informativeText>Abstract: The external appearance of this device. The values are composed of a category (10-bits) and sub-categories (6-bits). </informativeText>
+      <value length="2" type="hex" variable_length="false">0000</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+  </service>
+
+  <!--Device Information-->
+  <service advertise="false" id="device_information" name="Device Information" requirement="mandatory" sourceId="org.bluetooth.service.device_information" type="primary" uuid="180A">
+    <informativeText>Abstract:  The Device Information Service exposes manufacturer and/or vendor information about a device.  Summary:  This service exposes manufacturer information about a device. The Device Information Service is instantiated as a Primary Service. Only one instance of the Device Information Service is exposed on a device.  </informativeText>
+
+    <!--Manufacturer Name String-->
+    <characteristic const="true" id="manufacturer_name_string" name="Manufacturer Name String" sourceId="org.bluetooth.characteristic.manufacturer_name_string" uuid="2A29">
+      <informativeText>Abstract:  The value of this characteristic is a UTF-8 string representing the name of the manufacturer of the device.  </informativeText>
+      <value length="12" type="utf-8" variable_length="false">Silicon Labs</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+
+    <!--System ID-->
+    <characteristic const="false" id="system_id" name="System ID" sourceId="org.bluetooth.characteristic.system_id" uuid="2A23">
+      <informativeText>Abstract:  The SYSTEM ID characteristic consists of a structure with two fields. The first field are the LSOs and the second field contains the MSOs.       This is a 64-bit structure which consists of a 40-bit manufacturer-defined identifier concatenated with a 24 bit unique Organizationally Unique Identifier (OUI). The OUI is issued by the IEEE Registration Authority (http://standards.ieee.org/regauth/index.html) and is required to be used in accordance with IEEE Standard 802-2001.6 while the least significant 40 bits are manufacturer defined.       If System ID generated based on a Bluetooth Device Address, it is required to be done as follows. System ID and the Bluetooth Device Address have a very similar structure: a Bluetooth Device Address is 48 bits in length and consists of a 24 bit Company Assigned Identifier (manufacturer defined identifier) concatenated with a 24 bit Company Identifier (OUI). In order to encapsulate a Bluetooth Device Address as System ID, the Company Identifier is concatenated with 0xFFFE followed by the Company Assigned Identifier of the Bluetooth Address. For more guidelines related to EUI-64, refer to http://standards.ieee.org/develop/regauth/tut/eui64.pdf.  Examples:  If the system ID is based of a Bluetooth Device Address with a Company Identifier (OUI) is 0x123456 and the Company Assigned Identifier is 0x9ABCDE, then the System Identifier is required to be 0x123456FFFE9ABCDE.  </informativeText>
+      <value length="8" type="hex" variable_length="false"/>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+  </service>
+
+  <!--Battery Voltage-->
+  <service advertise="false" name="Battery Voltage" requirement="mandatory" sourceId="" type="primary" uuid="9b14f0ea-40c0-407c-a9a0-f1eeea450c8b">
+
+    <!--Voltage-->
+    <characteristic const="false" id="Voltage" name="Voltage" sourceId="" uuid="c2226f54-5066-49f2-830b-45c0982ac228">
+      <value length="2" type="hex" variable_length="false">0000</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+  </service>
+
+  <!--Info-->
+  <service advertise="true" name="Info" requirement="mandatory" sourceId="" type="primary" uuid="1d5daa84-eff2-4459-991b-31bed8ea2548">
+
+    <!--Epoch-->
+    <characteristic const="false" id="ble_reference_time" name="Epoch" sourceId="" uuid="119ae128-9459-4377-9338-4238e175e28d">
+      <value length="8" type="hex" variable_length="false">00</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+        <write authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+
+    <!--Version-->
+    <characteristic const="true" name="Version" sourceId="" uuid="767ca8d3-3abc-4ac1-99b9-04451df317b2">
+      <value length="3" type="hex" variable_length="false">030000</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+
+    <!--Name-->
+    <characteristic const="true" name="Name" sourceId="" uuid="3324b61c-9455-4d49-9c33-8ce78a07c41d">
+      <value length="0" type="hex" variable_length="false">754F7879537461742D73706563</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+
+    <!--Refresh Reference Time-->
+    <characteristic const="false" id="refresh_reference_time" name="Refresh Reference Time" sourceId="" uuid="7a2c949b-36e4-4386-9f03-6fa34855a97a">
+      <value length="0" type="hex" variable_length="false">00</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+        <indicate authenticated="false" bonded="false" encrypted="false"/>
+        <notify authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+  </service>
+
+  <!--OxyStatData-->
+  <service advertise="false" name="OxyStatData" requirement="mandatory" sourceId="" type="primary" uuid="d37d0c17-69fd-41a0-895b-af3bd8697a4a">
+
+    <!--Config-->
+    <characteristic const="false" id="oxystat_config" name="Config" sourceId="" uuid="049456ce-d549-44f1-810a-7d11381363d9">
+      <value length="0" type="hex" variable_length="false">000000000000000000000000000000000000000000</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+        <write authenticated="false" bonded="false" encrypted="false"/>
+        <notify authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+
+    <!--Data-->
+    <characteristic const="false" id="oxystat_data" name="Data" sourceId="" uuid="a8975a3e-a88a-4700-9210-64d710d3b349">
+      <value length="247" type="hex" variable_length="false">00</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+        <indicate authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+  </service>
+
+  <!--Generic Attribute-->
+  <service advertise="false" id="generic_attribute_0" name="Generic Attribute" requirement="mandatory" sourceId="org.bluetooth.service.generic_attribute" type="primary" uuid="1801">
+
+    <!--Service Changed-->
+    <characteristic const="false" id="service_changed" name="Service Changed" sourceId="org.bluetooth.characteristic.gatt.service_changed" uuid="2A05">
+      <value length="4" type="hex" variable_length="false"/>
+      <properties>
+        <indicate authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
+  </service>
+</gatt>
